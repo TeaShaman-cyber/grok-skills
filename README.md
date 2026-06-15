@@ -106,6 +106,42 @@ This skill enforces structure and reduces context entropy during complex researc
 **Error:** Tool calls fail with permission errors
 **Solution:** Reconnect the connector with broader OAuth scopes, or check the specific permission requested by the tool.
 
+## Debugging MCP / Connectors
+
+When connectors stop working or tools are not discovered, use this checklist:
+
+1. **Check connection status**
+   ```bash
+   grok-mcp check
+   ```
+   This verifies that the MCP server is running and authentication is valid.
+
+2. **Discover available tools**
+   ```bash
+   grok-mcp ls
+   grok-mcp ls --query "linear"     # filter by service
+   grok-mcp ls --query "github" --limit 20
+   ```
+   Always run `ls` before calling any tool you haven't used recently.
+
+3. **Re-authenticate if needed**
+   Go to Settings → Connectors, disconnect and reconnect the problematic service. This often fixes permission drift.
+
+4. **Check for stale cache**
+   Sometimes Grok caches the list of tools. Restarting the chat or running `grok-mcp check` again usually clears it.
+
+5. **Inspect tool schema**
+   If a tool call fails with validation errors, run:
+   ```bash
+   grok-mcp ls --query "exact_tool_name"
+   ```
+   and verify that your arguments match the `input_schema`.
+
+6. **Common MCP error patterns**
+   - `auth` or `endpoint` error → re-authenticate the connector
+   - `connection refused` → MCP server may be down (rare in hosted Grok)
+   - Empty results → check filters and permissions on the service side
+
 ## Installation
 
 These skills are designed to be placed in your `~/.grok/skills/` or project-level `.grok/skills/` directory.
