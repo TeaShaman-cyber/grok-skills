@@ -87,21 +87,11 @@ github pr create title="Add new feature" head="feature/xyz" base="main"
 
 This skill is a convenience layer over `grok-mcp` tools. Always run `grok-mcp ls --query "github"` first if you need to discover available tools.
 
-## Diagnostics & Troubleshooting
+## Модули экосистемы GitHub
 
-Если команды GitHub не работают:
+Дополнительные знания по экосистеме GitHub вынесены в отдельные модули (чتобы ла раздувать этот skill):
 
-1. **Проверь MCP**
-   ```bash
-   grok-mcp check
-   grok-mcp ls --query "github"
-   ```
+- `github/actions.md` — GitHub Actions, workflows, CI/CD
+- `github/git-flow.md` — стратегии ветвления и best practices (в разработке)
 
-2. **Частые проблемы**
-   - `owner` / `repo` не указаны → укажи явно или убедись, что есть текущий контекст репозитория.
-   - Нет прав → проверь OAuth scopes коннектора GitHub.
-   - Инструмент не найден → возможно, коннектор нужно переподключить.
-
-3. **Fallback**
-   - Если MCP недоступен — используй веб-интерфейс GitHub напрямую.
-   - Для срочных задач можно создавать issues и PR через веб, а потом ссылаться на них в разговоре.
+При необходимости я читаю соответствующий модуль.
