@@ -1,6 +1,6 @@
 ---
 name: github
-description: Convenient helpers for working with GitHub (pull requests, issues, branches, collaborators). Uses grok-mcp under the hood.
+description: Convenient helpers for working with GitHub (pull requests, issues, branches, collaborators, comments). Uses grok-mcp under the hood.
 ---
 
 # GitHub Skill
@@ -18,17 +18,17 @@ This skill provides convenient shortcuts for common GitHub operations through co
 ### Pull Requests
 
 - `github pr list [owner=...] [repo=...] [state=open|closed|all] [author=me]`
-  List pull requests. Default: open PRs in current context.
+  List pull requests.
 
 - `github pr get <number>`
   Get details of one pull request.
 
 - `github pr comments <number>`
-  List comments/reviews on a PR.
+  List comments and reviews on a PR.
 
 ### Issues
 
-- `github issue list [owner=...] [repo=...] [state=open] [assignee=me]`
+- `github issue list [owner=...] [repo=...] [state=open|closed|all] [assignee=me]`
   List issues.
 
 - `github issue get <number>`
@@ -36,6 +36,14 @@ This skill provides convenient shortcuts for common GitHub operations through co
 
 - `github issue comment <number> "<text>"`
   Add a comment to an issue.
+
+### Create & Update
+
+- `github issue create title="<title>" [body="..."] [assignee=me] [labels=...]`
+  Create a new issue.
+
+- `github pr create title="<title>" head="<branch>" base="main" [body="..."]`
+  Create a Pull Request.
 
 ### Branches & Repository
 
@@ -48,37 +56,52 @@ This skill provides convenient shortcuts for common GitHub operations through co
 ### Quick Workflows
 
 - `github my-prs`
-  List my open pull requests across repositories I have access to.
+  List my open pull requests.
 
 - `github review-queue`
-  Show PRs that need my review (where I am requested as reviewer).
+  Show PRs that need my review.
 
 - `github triage [repo=...]`
-  Show open issues and PRs that need attention (no assignee, stale, etc.).
+  Show open issues and PRs that need attention.
 
 ## Examples
 
 ```bash
-# List open PRs in current repo
+# List open PRs
 github pr list state=open
 
-# Get details of PR #42
+# Get PR details
 github pr get 42
 
-# Add a comment to issue #17
+# Create an issue
+github issue create title="Fix login bug" body="Steps to reproduce..." assignee=me
+
+# Add comment to issue
 github issue comment 17 "LGTM, let's ship it"
 
-# List my open PRs
-github my-prs
+# Create a Pull Request
+github pr create title="Add new feature" head="feature/xyz" base="main"
 ```
 
 ## Under the Hood
 
-This skill is a convenience layer over `grok-mcp` tools:
-- `github___list_pull_requests`
-- `github___list_issues`
-- `github___list_branches`
-- `github___list_repository_collaborators`
-- etc.
+This skill is a convenience layer over `grok-mcp` tools. Always run `grok-mcp ls --query "github"` first if you need to discover available tools.
 
-Always run `grok-mcp ls --query "github"` first if you need to discover new or updated tools.
+## Diagnostics & Troubleshooting
+
+Если команды GitHub не работают:
+
+1. **Проверь MCP**
+   ```bash
+   grok-mcp check
+   grok-mcp ls --query "github"
+   ```
+
+2. **Частые проблемы**
+   - `owner` / `repo` не указаны → укажи явно или убедись, что есть текущий контекст репозитория.
+   - Нет прав → проверь OAuth scopes коннектора GitHub.
+   - Инструмент не найден → возможно, коннектор нужно переподключить.
+
+3. **Fallback**
+   - Если MCP недоступен — используй веб-интерфейс GitHub напрямую.
+   - Для срочных задач можно создавать issues и PR через веб, а потом ссылаться на них в разговоре.
