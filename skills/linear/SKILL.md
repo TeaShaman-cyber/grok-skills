@@ -1,6 +1,6 @@
 ---
 name: linear
-description: Convenient helpers for working with Linear.app (issues, comments, milestones). Uses grok-mcp under the hood but provides shorter and more intuitive commands.
+description: Convenient helpers for working with Linear.app (issues, comments, milestones, updates). Uses grok-mcp under the hood but provides shorter and more intuitive commands.
 ---
 
 # Linear Skill
@@ -17,17 +17,26 @@ This skill provides convenient shortcuts for working with Linear through the con
 
 ### Issues
 
-- `linear list [assignee=me] [state=started|backlog|todo] [limit=20]`
+- `linear list [assignee=me] [state=started|backlog|todo|completed] [limit=20]`
   List issues. Default: my active issues.
 
 - `linear get <issueId>`
   Get full details of one issue (LIN-1234 or UUID).
+
+- `linear create title="<title>" [description="..."] [project="Team Name"] [assignee=me] [state=backlog|todo]`
+  Create a new issue.
+
+- `linear update <issueId> [title="..."] [description="..."] [state=started|completed|backlog] [assignee=me|<user>]`
+  Update an existing issue (title, description, state, assignee).
 
 - `linear comment <issueId> "<text>"`
   Add a comment to an issue.
 
 - `linear comments <issueId> [limit=30]`
   List comments on an issue.
+
+- `linear search "<query>" [limit=20]`
+  Search issues by text.
 
 ### Milestones / Projects
 
@@ -45,20 +54,29 @@ This skill provides convenient shortcuts for working with Linear through the con
 - `linear triage`
   Show issues that are in backlog/triage and need prioritization.
 
+- `linear done <issueId>`
+  Quickly mark an issue as completed (shortcut for `linear update <id> state=completed`).
+
 ## Examples
 
 ```bash
 # List my current work
 linear list assignee=me state=started
 
-# Add a quick comment
+# Create a new task
+linear create title="Fix login bug" project="Platform" assignee=me
+
+# Update issue status and assignee
+linear update LIN-4821 state=started assignee=me
+
+# Quick complete
+linear done LIN-4821
+
+# Add a comment
 linear comment LIN-4821 "Done with the first part, moving to testing"
 
-# See comments on an issue
-linear comments LIN-4821
-
-# List milestones for a specific project
-linear milestones project="Q3 Platform"
+# Search issues
+linear search "login bug"
 ```
 
 ## Under the Hood
