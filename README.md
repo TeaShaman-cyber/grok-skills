@@ -69,6 +69,43 @@ Maintains methodology, file discipline, and iteration process for work on ТИД
 
 This skill enforces structure and reduces context entropy during complex research work.
 
+## Common Errors & Solutions
+
+### Linear
+
+**Error:** `linear___list_comments` returns empty or error
+**Solution:** Make sure you pass the correct `issueId` (e.g. `LIN-1234` or full UUID). Use `linear get <id>` first to verify the issue exists.
+
+**Error:** Comments not appearing after `linear comment`
+**Solution:** The comment was added, but the UI cache in Linear may need a refresh. Use `linear comments <id>` to verify, or check the issue in the web UI.
+
+### GitHub
+
+**Error:** `github___list_pull_requests` returns 404 or empty
+**Solution:** Check that `owner` and `repo` are correct. For organization repos, you may need to specify `organization` or use the correct team permissions.
+
+**Error:** Cannot create/update files via skill
+**Solution:** The GitHub connector may have limited permissions. Check OAuth scopes or use `github___create_or_update_file` directly with proper authentication.
+
+### GraphQL / Apollo
+
+**Error:** Data not updating after mutation
+**Solution:** You are probably missing the `update` function in the mutation. Prefer surgical cache updates over `refetchQueries` for better UX.
+
+**Error:** Apollo returns old/stale data
+**Solution:** Switch `fetchPolicy` to `cache-and-network` or `network-only` for that specific query. Check your `typePolicies` merge logic.
+
+**Error:** Normalized cache shows duplicate objects
+**Solution:** Your objects are missing stable `id` fields or `typePolicies` are not configured correctly for that type.
+
+### General / MCP
+
+**Error:** `grok-mcp ls` shows no tools for a connected service
+**Solution:** Run `grok-mcp check` first. Sometimes the connection needs to be re-authenticated or the connector restarted.
+
+**Error:** Tool calls fail with permission errors
+**Solution:** Reconnect the connector with broader OAuth scopes, or check the specific permission requested by the tool.
+
 ## Installation
 
 These skills are designed to be placed in your `~/.grok/skills/` or project-level `.grok/skills/` directory.
