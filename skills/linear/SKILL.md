@@ -84,3 +84,35 @@ linear search "login bug"
 This skill translates high-level commands into the appropriate `grok-mcp call linear___...` calls. It uses the `linear` tools discovered via `grok-mcp ls`.
 
 If a command is not covered here, fall back to direct `grok-mcp` usage after running `grok-mcp ls --query "linear"`.
+
+## Diagnostics & Troubleshooting
+
+Если команды Linear не работают или возвращают ошибки:
+
+1. **Проверь статус MCP**
+   ```bash
+   grok-mcp check
+   ```
+   Это покажет, жив ли MCP и есть ли проблемы с аутентификацией.
+
+2. **Посмотри доступные Linear инструменты**
+   ```bash
+   grok-mcp ls --query "linear"
+   ```
+   Убедись, что нужный инструмент (например, `linear___update_issue`) присутствует в списке.
+
+3. **Частые проблемы**
+   - `issueId` не найден → используй полный UUID или правильный идентификатор (LIN-XXXX).
+   - Нет прав на изменение задачи → проверь, что у тебя есть доступ в Linear к этому проекту/команде.
+   - Команда не распознаётся → убедись, что skill `linear` активен (он должен быть в `~/.grok/skills/`).
+
+4. **Fallback**
+   - Если MCP недоступен, используй веб-интерфейс Linear напрямую.
+   - Для срочных задач можно создать issue через веб и потом привязать к разговору.
+
+5. **Полезные команды для диагностики**
+   ```bash
+   grok-mcp check
+   grok-mcp ls --query "linear"
+   linear get <issueId>          # проверить, что issue существует
+   ```
