@@ -32,7 +32,7 @@
 - CI/CD запускается на каждое изменение в `main`
 
 **Plusy:**
-- Высокая скорость поставки
+- Фысокая скорость поставки
 - Меньше конфликтов
 - Лучше continuous integration
 - Проще с feature flags
@@ -101,6 +101,66 @@
 - Включи **auto-merge** для маленьких безопасных изменений
 - Используй **CODEOWNERS** файл для автоматического назначения ревьюеров
 - Настрой **branch protection rules** на `main`
+
+## Примеры команд Git (Git Flow)
+
+### Инициализация Git Flow в репозитории
+
+```bash
+git flow init
+```
+
+### Работа с feature-ветками
+
+```bash
+# Начать новую фичу
+git flow feature start my-new-feature
+
+# Закончить фичу (мёрж в develop + удаление ветки)
+git flow feature finish my-new-feature
+
+# Опубликовать фичу на удалённый репозиторий
+git flow feature publish my-new-feature
+
+# Получить чужую опубликованную фичу
+git flow feature pull origin my-new-feature
+```
+
+### Работа с release-ветками
+
+```bash
+# Начать подготовку релиза
+git flow release start 1.2.0
+
+# Закончить релиз (мёрж в main и develop, создание тега)
+git flow release finish 1.2.0
+
+# Опубликовать релиз
+git flow release publish 1.2.0
+```
+
+### Работа с hotfix-ветками
+
+```bash
+# Начать hotfix (от main)
+git flow hotfix start 1.2.1
+
+# Закончить hotfix
+git flow hotfix finish 1.2.1
+```
+
+### Полезные алиасы (добавить в `~/.gitconfig`)
+
+```ini
+[alias]
+    # Git Flow shortcuts
+    fs = "!git flow feature start"
+    ff = "!git flow feature finish"
+    rs = "!git flow release start"
+    rf = "!git flow release finish"
+    hs = "!git flow hotfix start"
+    hf = "!git flow hotfix finish"
+```
 
 ---
 
