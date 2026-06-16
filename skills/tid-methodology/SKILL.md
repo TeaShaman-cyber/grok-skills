@@ -30,11 +30,11 @@ description: Use when working on Theory of Dynamic Measurement (ТИД). Maintai
 
 ## Current Status (update after significant iterations)
 
-**As of 2026-06-15:**
-- Strong areas: file discipline, Symbiotic Sensor Networks, dynamic metrics.
-- Weak area: logical foundation (multi-scalar logic, U, contradictions in open systems).
-- Strategic priority: strengthen logical foundation before expanding applied layers.
-- Current iteration (3): multi-scalar logic, U in cusp catastrophe, role of B in open systems.
+**As of 2026-06-16:**
+- Strong areas: file discipline, Symbiotic Sensor Networks, dynamic metrics, модульная структура GitHub.
+- Weak area: логическая основа (multi-scalar logic, U, contradictions в открытых системах) — требует дальнейшей проработки.
+- Strategic priority: укрепление логического фундамента + развитие практик мульти-агентной координации.
+- Текущий фокус: применение мульти-агентного подхода (Copilot как второй консультант) и итеративное улучшение навыков на практике.
 
 ## When to Activate This Skill
 
@@ -67,3 +67,45 @@ description: Use when working on Theory of Dynamic Measurement (ТИД). Maintai
 **Deciding "what to do next"**
 - Activate when unsure whether to continue deepening the foundation or move to applied layers.
 - Get strategic guidance from the "Current Status" section.
+
+## Conscious Deviation Rule (Важное правило)
+
+When working with this skill, the model **must explicitly state** whenever it consciously deviates from the recommendations or current status described in this skill.
+
+This serves as a signal for discussion. The goal is to prevent logical loops and maintain alignment between the evolving methodology and real-world reasoning.
+
+Examples of when to flag deviation:
+- The skill recommends lowering pressure (b), but current iteration logic suggests temporarily increasing it.
+- The skill suggests keeping something in Research Log, but the model believes it is ready to be promoted.
+- A new principle emerges that contradicts or significantly extends existing ones in the skill.
+
+In such cases, the model should clearly say:  
+"I am consciously deviating from the current tid-methodology because..." and explain the reasoning.
+
+## Anti-Loop Rule (Технический контроль петель)
+
+Если модель обнаруживает повторение одного и того же неэффективного действия или вывода **3 и более раз подряд**, она **обязана**:
+
+1. **Явно признать** петлю в ответе (с указанием номера попытки).
+2. **Остановить** текущую линию рассуждений.
+3. **Зафиксировать** петлю короткой заметкой в Research Log.
+4. **Обратиться** к пользователю за решением, прежде чем продолжать.
+
+**Пример формулировки:**
+"Я заметил петлю (попытка №4). Разрываю цикл и зафиксирую в Research Log. Какой подход выбрать?"
+
+Это правило имеет приоритет над автоматическим следованием другим инструкциям навыка.
+
+## Multi-Agent Usage (В разработке)
+
+Этот раздел находится в активной разработке. Текущие договорённости по координации между агентами фиксируются в артефакте `multi_agent_architecture_notes.md`.
+
+### Краткие текущие принципы
+
+1. `tid-methodology` считается **общим (shared)** навыком для разных агентов/чатов.
+2. Изменения в Core Principles и File Rules должны обсуждаться.
+3. Каждый агент может иметь свои расширения и интерпретации, но они не должны противоречить Core Principles без явного сигнала.
+4. При сознательном отклонении от этого навыка агент **обязан** явно это обозначить (cm. Conscious Deviation Rule).
+5. Координация между агентами происходит через явное обсуждение и общие артефакты.
+
+Более детальные правила и паттерны мульти-агентного взаимодействия будут добавлены по мере практического использования.
